@@ -1,0 +1,35 @@
+{
+  "name": "MEAN_MVC_4thTutorial",
+  "version": "1.0.0",
+  "description": "Do An 2 - Thay Truong Vinh Linh",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/firefoxvt/DoAn2_ThayTruongVinhLinh.git"
+  },
+  "keywords": [
+    "MEAN",
+    "MVC"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/firefoxvt/DoAn2_ThayTruongVinhLinh/issues"
+  },
+  "homepage": "https://github.com/firefoxvt/DoAn2_ThayTruongVinhLinh",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "connect-flash": "^0.1.1",
+    "ejs": "^2.5.2",
+    "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "mongoose": "^4.6.8",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "passport-local": "^1.0.0",
+    "passport-twitter": "^1.0.4"
+  }
+}

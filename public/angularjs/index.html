@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en" data-framework="angularjs">
+	<head>
+		<meta charset="utf-8">
+		<title>AngularJS • BookMVC</title>
+		<link rel="stylesheet" href="node_modules/bookmvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/bookmvc-app-css/index.css">
+		<style>[ng-cloak] { display: none; }</style>
+	</head>
+	<body ng-app="bookmvc">
+		<ng-view />
+
+		<script type="text/ng-template" id="bookmvc-index.html">
+			<section id="bookapp">
+				<header id="header">
+					<h1>books</h1>
+					<form id="book-form" ng-submit="addBook()">
+						<input id="new-book" placeholder="What needs to be done?" ng-model="newBook" ng-disabled="saving" autofocus>
+					</form>
+				</header>
+				<section id="main" ng-show="books.length" ng-cloak>
+					<input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(allChecked)">
+					<label for="toggle-all">Mark all as complete</label>
+					<ul id="book-list">
+						<li ng-repeat="book in books | filter:statusFilter track by $index" ng-class="{completed: book.completed, editing: book == editedBook}">
+							<div class="view">
+								<input class="toggle" type="checkbox" ng-model="book.completed" ng-change="toggleCompleted(book)">
+								<label ng-dblclick="editBook(book)">{{book.title}}</label>
+								<button class="destroy" ng-click="removeBook(book)"></button>
+							</div>
+							<form ng-submit="saveEdits(book, 'submit')">
+								<input class="edit" ng-trim="false" ng-model="book.title" book-escape="revertEdits(book)" ng-blur="saveEdits(book, 'blur')" book-focus="book == editedBook">
+							</form>
+						</li>
+					</ul>
+				</section>
+				<footer id="footer" ng-show="books.length" ng-cloak>
+					<span id="book-count"><strong>{{remainingCount}}</strong>
+						<ng-pluralize count="remainingCount" when="{ one: 'item left', other: 'items left' }"></ng-pluralize>
+					</span>
+					<ul id="filters">
+						<li>
+							<a ng-class="{selected: status == ''} " href="#/">All</a>
+						</li>
+						<li>
+							<a ng-class="{selected: status == 'active'}" href="#/active">Active</a>
+						</li>
+						<li>
+							<a ng-class="{selected: status == 'completed'}" href="#/completed">Completed</a>
+						</li>
+					</ul>
+					<button id="clear-completed" ng-click="clearCompletedBooks()" ng-show="completedCount">Clear completed</button>
+				</footer>
+			</section>
+			<footer id="info">
+				<p>Double-click to edit a book</p>
+				<p>Credits:
+					<a href="http://twitter.com/cburgdorf">Christoph Burgdorf</a>,
+					<a href="http://ericbidelman.com">Eric Bidelman</a>,
+					<a href="http://jacobmumm.com">Jacob Mumm</a> and
+					<a href="http://igorminar.com">Igor Minar</a>
+				</p>
+				<p>Part of <a href="http://bookmvc.com">BookMVC</a></p>
+			</footer>
+		</script>
+		<script src="node_modules/bookmvc-common/base.js"></script>
+		<script src="node_modules/angular/angular.js"></script>
+		<script src="node_modules/angular-route/angular-route.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/controllers/bookCtrl.js"></script>
+		<script src="js/services/bookStorage.js"></script>
+		<script src="js/directives/bookFocus.js"></script>
+		<script src="js/directives/bookEscape.js"></script>
+	</body>
+</html>
